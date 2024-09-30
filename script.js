@@ -119,6 +119,8 @@ function openPopup(index) {
     const username = document.getElementById("username");
     const password = document.getElementById("password");
     const email = document.getElementById("email");
+    const activationStatus = document.getElementById("activation-status");
+    const activateButton = document.getElementById("activate-btn");
 
     const cred = credentials[index - 1];
 
@@ -127,8 +129,14 @@ function openPopup(index) {
     password.innerText = cred.password;
     email.innerText = cred.email;
 
-    document.getElementById("activate-btn").style.display = cred.activatedUntil ? "none" : "block";
-    document.getElementById("activation-status").innerText = cred.activatedUntil ? `Aktiviert bis: ${new Date(cred.activatedUntil).toLocaleDateString()}` : "";
+    // Überprüfen, ob der Status aktiviert ist
+    if (cred.activatedUntil && new Date(cred.activatedUntil) > new Date()) {
+        activationStatus.innerText = `Aktiviert bis: ${new Date(cred.activatedUntil).toLocaleDateString()}`;
+        activateButton.style.display = "none"; // Button ausblenden
+    } else {
+        activationStatus.innerText = ""; // Status zurücksetzen
+        activateButton.style.display = "block"; // Button einblenden
+    }
 
     popup.classList.remove("hidden"); // Popup einblenden
     popup.style.display = "block"; // Sicherstellen, dass es sichtbar ist
@@ -166,10 +174,21 @@ async function activateCredential() {
 
     saveCredentials();  // Daten speichern
 
-    document.getElementById("activate-btn").style.display = "none";
+    document.getElementById("activate-btn").style.display = "none"; // Button ausblenden
     document.getElementById("activation-status").innerText = `Aktiviert bis: ${activateUntil.toLocaleDateString()}`;
 
     updateStatusOnBars();
+
+    // Cooldown und Aktivierungsstatus zurücksetzen
+    setTimeout(() => {
+        credentials[index].activatedUntil = null; // Aktivierungsstatus zurücksetzen
+        updateStatusOnBars(); // Balken-Status aktualisieren
+        setTimeout(() => {
+            credentials[index].cooldownUntil = null; // Cooldown zurücksetzen
+            saveCredentials(); // Speichern
+            updateStatusOnBars(); // Balken-Status aktualisieren
+        }, cooldownDuration);
+    }, activationDuration);
 }
 
 // Aktualisiere aktive Balken
