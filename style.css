@@ -1,0 +1,61 @@
+body {
+    background-color: #181818;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.active-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.balken {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #444444;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    background-color: #333333;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.dropdown-content > div {
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content > div:hover {
+    background-color: #555555;
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333333;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    display: none; /* Standardmäßig unsichtbar */
+}
+
+#popup.hidden {
+    display: none; /* Versteckt das Popup */
+}
