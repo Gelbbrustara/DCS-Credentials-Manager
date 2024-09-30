@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>DCS Abmeldeinformationen</title>
+</head>
+<body>
+    <div class="container">
+        <h1>DCS Abmeldeinformationen</h1>
+        <div id="current-time" style="font-size: 1.2em; margin-bottom: 20px; color: #ffffff;"></div>
+        
+        <h2>Aktive Balken</h2>
+        <div id="active-bars" class="active-bars"></div>
+        
+        <h2>Verfügbare Balken</h2>
+        <div id="available-dropdown" class="dropdown-content"></div>
+
+        <h2>Nicht verfügbare Balken</h2>
+        <div id="unavailable-dropdown" class="dropdown-content"></div>
+    </div>
+
+    <!-- Popup -->
+    <div id="popup" class="hidden">
+        <button class="close-btn" onclick="closePopup()">X</button>
+        <h2 id="popup-balken-number">Balken</h2>
+        <p>Benutzername: <span id="username"></span> <button onclick="copyToClipboard('username')">Kopieren</button></p>
+        <p>Passwort: <span id="password"></span> <button onclick="copyToClipboard('password')">Kopieren</button></p>
+        <p>E-Mail: <span id="email"></span></p>
+        <p id="activation-status"></p>
+        <button id="activate-btn" onclick="activateCredential()">Aktivieren</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
